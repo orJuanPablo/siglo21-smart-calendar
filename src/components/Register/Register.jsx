@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
+import { Alert } from '../Alert/Alert'
 
 export const Register = () => {
   const [user, setUser] = useState({ email: "", password: "", passwordR: "" })
@@ -23,15 +24,14 @@ export const Register = () => {
     } else { setError("Las contraseñas no coinciden.") }
   }
   return (
-    <div>{error && <p>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Email</label>
-        <input type="email" name="email" placeholder="youremaill@company.com" onChange={handleChange} />
-        <label htmlFor='password'>Contraseña</label>
-        <input type="password" name="password" id="password" onChange={handleChange} />
-        <label htmlFor='passwordR'>Repita la contraseña</label>
-        <input type="password" name="passwordR" id="passwordR" onChange={handleChange} />
-        <button>Registrar</button>
+    <div className='w-full max-w-xs m-auto'>{error && <Alert message={error} />}
+      <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div className="mb-4"><label htmlFor="email" className='block text-gray-400 text-sm font-bold mb-2'>Email</label>
+          <input type="email" name="email" placeholder="youremaill@company.com" className="shadow appearence-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" onChange={handleChange} />
+        </div><div className="mb-4"><label htmlFor='password' className='block text-gray-400 text-sm font-bold mb-2'>Contraseña</label>
+          <input type="password" name="password" id="password" onChange={handleChange} className="shadow appearence-none border rounded  py-2 px-3 w-1/2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+          <input type="password" name="passwordR" id="passwordR" onChange={handleChange} className="shadow appearence-none border rounded  py-2 px-3 w-1/2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+        </div><button className='bg-blue-500 hover:bg-blue-300 text-white rounded font-bold py-2 px-4 focus:outline-none focus:shadow-outline'>Registrar</button>
       </form></div>
   )
 }
