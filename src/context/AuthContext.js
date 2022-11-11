@@ -8,6 +8,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { auth } from "../fireBase/config";
+import { saveUser } from "../fireBase/usersCollection";
 export const authContext = createContext();
 
 export const useAuth = () => {
@@ -27,17 +28,24 @@ export function AuthProvider({ children }) {
 
   const googleLogin = async () => {
     const gProvider = new GoogleAuthProvider();
-    signInWithPopup(auth, gProvider);
+    await signInWithPopup(auth, gProvider);
   };
   useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => {
+    onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
+      currentUser.metadata.createdAt === currentUser.metadata.lastLoginAt &&
+        (await saveUser({
+          email: currentUser.email,
+          displayName: currentUser.displayName || currentUser.email,
+        }));
       setLoading(false);
     });
   }, []);
 
   return (
-    <authContext.Provider value={{ signup, login, googleLogin, logout, user }}>
+    <authContext.Provider
+      value={{ signup, login, googleLogin, logout, user, loading }}
+    >
       {children}
     </authContext.Provider>
   );
