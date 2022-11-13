@@ -16,26 +16,7 @@ const locales = {
 const localizer = dateFnsLocalizer({
   format, parse, startOfWeek, getDay, locales
 })
-const events = [
-  {
-    title: "Big Meeting",
-    allDay: "true",
-    start: new Date(2022, 10, 3),
-    end: new Date(2022, 10, 5),
-  },
-  {
-    title: "Big Zoom meeting",
-    allDay: "true",
-    start: new Date(2022, 10, 1),
-    end: new Date(2022, 10, 1),
-  },
-  {
-    title: "Big Capo",
-    allDay: "true",
-    start: new Date(2022, 10, 15),
-    end: new Date(2022, 10, 17),
-  },
-];
+
 export const Calendario = () => {
   const [newEvent, setNewEvent] = useState({});
   const [allEvents, setAllEvents] = useState([]);

@@ -19,8 +19,11 @@ export const SelectorUsuarios = ({ dataUp }) => {
   useEffect(() => {
     const getUsers = async () => {
       const aux = await getUserList()
+      const selected = selectedUsers
       setUsers(aux)
-      setSelectedUsers([...selectedUsers, user.email])
+      !selected.includes(user.email) && selected.push(user.email)
+      setSelectedUsers(selected)
+      dataUp(selectedUsers)
     }
     getUsers();
   }, [])
